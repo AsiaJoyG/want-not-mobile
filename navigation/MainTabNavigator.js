@@ -11,7 +11,7 @@ import IngredientScreen from '../screens/IngredientsScreen'
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import RecipeScreen from '../screens/RecipeScreen'
-
+import SingleRecipeScreen from '../screens/SingleRecipeScreen'
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -47,16 +47,16 @@ IngredientsStack.navigationOptions = {
 
 
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const SingleRecipeStack = createStackNavigator({
+  SingleRecipe: SingleRecipeScreen,
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+SingleRecipeStack.navigationOptions = {
+  tabBarLabel: 'Your Recipe',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-done-all' : 'md-done-all'}
     />
   ),
 };
@@ -80,6 +80,5 @@ export default createBottomTabNavigator({
   HomeStack,
   IngredientsStack,
   RecipeStack,
-  // LinksStack,
-  SettingsStack,
+  SingleRecipeStack
 });

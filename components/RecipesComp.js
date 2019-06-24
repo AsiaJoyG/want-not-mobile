@@ -1,6 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
 import React from "react";
-import RecipeComp from '../components/RecipesComp'
 import {
   Image,
   Platform,
@@ -8,6 +7,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableHighlight,
   View,
   ImageBackground
 } from "react-native";
@@ -24,12 +24,13 @@ import {
 import { MonoText } from "../components/StyledText";
 import { requireNativeViewManager } from "@unimodules/core";
 
-export default class IngredientsScreen extends React.Component {
+export default class RecipeComp extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      ingredientSearch: this.props.navigation.getParam('specialIngredient'),
+      recipeToMake: '',
+      ingredientSearch: this.props.ingredient,
       recipesFound: []
     };
   }
@@ -49,41 +50,47 @@ export default class IngredientsScreen extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation.navigate;
+    // const { navigate } = this.props.navigation.navigate;
     return (
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Header
-            statusBarProps={{ barStyle: "light-content" }}
-            barStyle="dark-content" // or directly
-            centerComponent={{ text: "WANT NOT", style: { color: "#fff" } }}
-            containerStyle={{
-              backgroundColor: "#191970",
-              justifyContent: "space-around"
-            }}
-          />
-        </View>
+      <View>
 
-        <View style={styles.body}>
-        < RecipeComp ingredient={this.state.ingredientSearch} navigate={this.props.navigation.navigate}/>
-        </View>
-        <View />
+        <View>
+  {
+    this.state.recipesFound.map((l, i) => (
 
+      <ListItem
+        key={i}
+        // leftAvatar={{ source: { uri: l.avatar_url } }}
+        title={l.name}
+        subtitle={l.description}
+        onPress ={() => this.props.navigate('SingleRecipe', {recipe: l.id})}
+      />
+    ))
+  }
+</View>
+<Text style={{ color: '#191970'}}>...Click on a recipe to get started!...</Text>
+
+        {/* <Button
+          raised
+          icon={{ name: "restaurant" }}
+          title="Suprise Me!"
+          onPress={() => navigate("Home")}
+        /> */}
       </View>
     );
   }
 }
 
-IngredientsScreen.navigationOptions = {
+RecipeComp.navigationOptions = {
   header: null
 };
 
 const styles = StyleSheet.create({
   name: {
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   description: {
-    color: 'grey'
+    color: "grey"
   },
   user: {
     borderWidth: 3

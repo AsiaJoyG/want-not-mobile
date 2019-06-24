@@ -24,8 +24,14 @@ export default class IngredientsScreen extends React.Component{
     super(props);
 
     this.state = {
-
+     ingredientToPass: ''
     }
+  }
+  componentDidMount(){
+    this.reset()
+  }
+  reset(){
+    this.setState({ingredientToPass: ''})
   }
  render(){
   const {navigate} = this.props.navigation
@@ -49,17 +55,23 @@ export default class IngredientsScreen extends React.Component{
     <CheckBox
       title='Apple'
       checked={this.state.appleChecked}
-      onPress={() => this.setState({ appleChecked: !this.state.appleChecked })}
+      onPress={() => this.setState({ appleChecked: !this.state.appleChecked, ingredientToPass: "Apple"  })}
     />
+    
        <CheckBox
       title='Corn'
       checked={this.state.cornChecked}
-      onPress={() => this.setState({ cornChecked: !this.state.cornChecked })}
+      onPress={() => this.setState({ cornChecked: !this.state.cornChecked,ingredientToPass: "Corn"  })}
     />
        <CheckBox
       title='Rice'
       checked={this.state.riceChecked}
-      onPress={() => this.setState({ riceChecked: !this.state.riceChecked })}
+      onPress={() => this.setState({ riceChecked: !this.state.riceChecked, ingredientToPass: "Rice" })}
+    />
+       <CheckBox
+      title='Sugar'
+      checked={this.state.sugarChecked}
+      onPress={() => this.setState({ sugarChecked: !this.state.sugarChecked, ingredientToPass: "Sugar" })}
     />
     </View>
    <View>
@@ -69,7 +81,9 @@ export default class IngredientsScreen extends React.Component{
   raised
   icon={{name: 'restaurant'}}
   title='FIND RECIPES!'
-  onPress={() => navigate('Recipes')} />
+  onPress={() => navigate('Recipes', {specialIngredient: this.state.ingredientToPass})}
+  // onPress={() => console.log('this is the state:', this.state.ingredientToPass)}
+  />
     </View>
       );
  }
